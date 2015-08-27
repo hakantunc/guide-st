@@ -1,5 +1,5 @@
 [
-  // {"keys": ["ctrl+shift+o"], "command": "calculate_percentage" },
+  {"keys": ["ctrl+shift+o"], "command": "calculate_percentage" },
   {"keys": ["ctrl+shift+."], "command": "add_date_time" },
   // {"keys": ["ctrl+shift+\\"], "command": "horizontal_task" },
   // {"keys": ["ctrl+shift+/"], "command": "move_task", "args": {"is_add_date": false} },

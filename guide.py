@@ -81,8 +81,6 @@ class MoveBlockCommand(sublime_plugin.TextCommand):
     self.view.sel().add(beg)
     self.view.show(beg)
 
-
-
 class LoggingCommand(sublime_plugin.TextCommand):
   def run(self, edit):
     pass
@@ -96,9 +94,10 @@ class LoggingCommand(sublime_plugin.TextCommand):
     log_list = ''
     # 2 
 
-
 class CalculatePercentageCommand(sublime_plugin.TextCommand):
   def run(self, edit):
+
+    print_length = 150
     print('beg#percentage')
 
     # 1 Read data into a data structure
@@ -111,6 +110,10 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
 
     for line in lines:
       text = self.view.substr(line)
+      if len(text) <= 0:
+        continue
+      if text[0] == ' ':
+        continue
       if (text == '###'):
         break
       pos_lt = text.find('>')
@@ -164,7 +167,8 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
       val = str(element['value'])
       if (val == '999'):
         val = '>'
-      print(str(percentage) + '%\t\t' + str(percentage*70/100) + ' ' + val + '>(' + first + ')' + element['task'])
+      print(str(percentage) + '%\t\t' + str(percentage*70/100) + ' ' +
+        val + '>(' + first + ')' + element['task'][:print_length])
 
     print('###\n###')
 
@@ -175,7 +179,8 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
       val = str(element['value'])
       if (val == '999'):
         val = '>'
-      print(str(percentage) + '%\t\t' + str(percentage*70/100) + ' ' + val + '>(' + first + ')' + element['task'])
+      print(str(percentage) + '%\t\t' + str(percentage*70/100) + ' ' +
+        val + '>(' + first + ')' + element['task'][:print_length])
 
 class MoveToLaterCommand(sublime_plugin.TextCommand):
   def run(self, edit):
@@ -218,8 +223,6 @@ class HorizontalTaskCommand(sublime_plugin.TextCommand):
     pass
     h = HorizontalTask()
     h.pp()
-
-
 
 class MoveTaskCommand(sublime_plugin.TextCommand):
   def run(self, edit, is_add_date = False):
