@@ -108,6 +108,7 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
 
     list = []
 
+    increment = '0'
     for line in lines:
       text = self.view.substr(line)
       if len(text) <= 0:
@@ -125,15 +126,23 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
         value = text[:pos_lt].strip()
         task = text[pos_lt+1:pos_pipe].strip().strip('>')
 
+        increment = '0'
+        pos_plus = value.find('+');
+        pos_minu = value.find('-');
+        if (pos_plus != -1):
+          increment = value[pos_plus:]
+          value = value[:pos_plus]
+        elif (pos_minu != -1):
+          increment = value[pos_minu:]
+          value = value[:pos_minu]
         m = re.search('^\d+$',value)
         if m:
           value = int(m.group(0))
         else:
           value = 999
-        list.append( { 'value': value, 'task': task, 'played': 0 } )
       else:
         value = 999
-        list.append( { 'value': value, 'task': text, 'played': 0 } )
+      list.append( { 'value': value, 'task': text, 'played': 0, 'increment': int(increment) } )
 
     if (len(list) == 0 ):
       print('Guide: no item')
@@ -148,6 +157,8 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
         list[0]['first'] = i
       pos = 0
       val = list[0]['value']
+      # list[0]['value'] += list[0]['increment']
+      # list[0]['value'] = max(list[0]['value'], 1)
       for _ in range(int(val)):
         if (pos+1 == len(list)):
           break
