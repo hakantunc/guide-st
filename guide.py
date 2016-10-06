@@ -24,7 +24,7 @@ class Util():
     if m:
       times = int(m.group(0))
     else:
-      times = 99
+      times = 999
     return times
   def getIndent(selfself, self, loc):
     line = self.view.substr(self.view.line(loc))
@@ -73,11 +73,11 @@ class MoveBlockCommand(sublime_plugin.TextCommand):
         self.view.run_command('swap_line_down')
 
     self.view.sel().clear()
-    self.view.run_command('fold_by_level', {"level": 1})
-    self.view.sel().add(beg)
-    self.view.show(beg)
-    self.view.run_command('unfold')
-    self.view.sel().clear()
+    # self.view.run_command('fold_by_level', {"level": 1})
+    # self.view.sel().add(beg)
+    # self.view.show(beg)
+    # self.view.run_command('unfold')
+    # self.view.sel().clear()
     self.view.sel().add(beg)
     self.view.show(beg)
 
