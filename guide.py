@@ -97,7 +97,7 @@ class LoggingCommand(sublime_plugin.TextCommand):
 class CalculatePercentageCommand(sublime_plugin.TextCommand):
   def run(self, edit):
 
-    print_length = 150
+    print_length = 100
     print('beg#percentage')
 
     # 1 Read data into a data structure
@@ -172,18 +172,21 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
     # 3 Output the results
 
     list = sorted(list, key=lambda val: val['first'], reverse = False)
-    for element in list:
-      percentage = round(100 * element['played']/simulation_number, 1)
-      first = str(element['first'])
-      val = str(element['value'])
-      if (val == '999'):
-        val = '>'
-      print(str(percentage) + '%\t\t' + str(percentage*70/100) + ' ' +
-        val + '>(' + first + ')' + element['task'][:print_length])
+    self.f(list, simulation_number, print_length)
 
     print('###\n###')
 
     list = sorted(list, key=lambda val: val['played'], reverse = True)
+    self.f(list, simulation_number, print_length)
+
+    head_tail_n = 5
+    print('###\n--First and last few tasks###')
+    list = sorted(list, key=lambda val: val['first'], reverse = False)
+    self.f(list[:head_tail_n], simulation_number, print_length)
+    print('---')
+    self.f(list[-head_tail_n:], simulation_number, print_length)
+
+  def f(self, list, simulation_number, print_length):
     for element in list:
       percentage = round(100 * element['played']/simulation_number, 1)
       first = str(element['first'])
@@ -192,6 +195,7 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
         val = '>'
       print(str(percentage) + '%\t\t' + str(percentage*70/100) + ' ' +
         val + '>(' + first + ')' + element['task'][:print_length])
+
 
 class MoveToLaterCommand(sublime_plugin.TextCommand):
   def run(self, edit):
