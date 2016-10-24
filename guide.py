@@ -185,6 +185,7 @@ class CalculatePercentageCommand(sublime_plugin.TextCommand):
     self.f(list[:head_tail_n], simulation_number, print_length)
     print('---')
     self.f(list[-head_tail_n:], simulation_number, print_length)
+    print('number of tasks: ' + str(len(list)))
 
   def f(self, list, simulation_number, print_length):
     for element in list:
